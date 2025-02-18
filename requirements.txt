@@ -1,0 +1,14 @@
+torch==2.1.0
+torchvision
+facexlib==0.3.0
+insightface==0.7.3
+onnx==1.17.0
+onnxruntime
+transformers==4.44.2
+tokenizers==0.19.1
+diffusers==0.31.0
+imageio==2.35.1
+imageio-ffmpeg==0.5.1
+transformers==4.44.2
+accelerate==0.34.2
+sentencepiece
