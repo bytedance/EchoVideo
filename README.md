@@ -5,7 +5,7 @@ This repo contains PyTorch model definitions, pre-trained weights and inference 
 
 # News
 
-**[2025.03.02]** We release the inference code and model weights of EchoVideo. [DownLoad](ckpts/README.md)
+**[2025.02.27]** We release the inference code and model weights of EchoVideo. [DownLoad](ckpts/README.md)
 
 # Introduction
 
@@ -16,13 +16,13 @@ EchoVideo is capable of generating a personalized video from a single photo and 
 ## 1. Text-to-Video Generation
 | Face-ID Preserving | Full-Body Preserving|
 | ---- | ---- |
-| <img height="240" src="asset/examples/3.gif" > | <img height="240" src="asset/examples/4.gif" > |
+| <video height="240" src="https://github.com/user-attachments/assets/201803ba-6988-492e-b389-c041fcea3624" > | <video height="240" src="https://github.com/user-attachments/assets/83c575d6-b50c-4fb0-91d5-e1e3f7f536da" > |
 
 ## 2. Comparisons
 | EchoVideo | ConsisID | IDAnimator |
 | ---- | ---- | ---- |
-| <img height="180" src="asset/examples/2.gif" > | <img height="180" src="asset/examples/5.gif" > | <img height="180" src="asset/examples/6.gif" > |
-| <img height="180" src="asset/examples/1.gif" > | <img height="180" src="asset/examples/7.gif" > | <img height="180" src="asset/examples/8.gif" > |
+| <video height="180" src="https://github.com/user-attachments/assets/3e7aa0fb-07d4-486f-99ad-2fb5e8088b7e" > | <video height="180" src="https://github.com/user-attachments/assets/dfdefa7e-d69c-42f5-b78b-21924fe3f6fa" > | <video height="180" src="https://github.com/user-attachments/assets/8961168a-bb89-47d3-8b03-b0dd64d5e9ac" > |
+| <video height="180" src="https://github.com/user-attachments/assets/236833e0-1d84-4319-8e31-1771f3284fd7" > | <video height="180" src="https://github.com/user-attachments/assets/0b765ffb-d553-42b4-b65f-6710750f31d5" > | <video height="180" src="https://github.com/user-attachments/assets/63a77e03-dd85-4591-97ce-51df4f0bb33d" > |
 
 
 # Usage
