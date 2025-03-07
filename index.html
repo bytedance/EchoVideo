@@ -1,0 +1,800 @@
+<link href="https://fonts.cdnfonts.com/css/chalkduster" rel="stylesheet">
+<style>
+    @import url('https://fonts.cdnfonts.com/css/chalkduster');
+</style>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>EchoVideo: Identity-Preserving Human Video Generation by Multimodal Feature Fusion</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<button style="position: fixed;right: 15px;top:  50%;height: 100px;width: 140px; font-size: 20px;" type="button"><a href="#top">Back to top</a></button>
+<div class="page-container">
+  <h1 align="center">EchoVideo: Identity-Preserving Human Video Generation by Multimodal Feature Fusion</h1>
+  <p align="center">&nbsp;</p>
+	<a href="#top"></a>
+  <ul>
+	<li><a href="#our_results_container">Our Results</a></li>
+  <!-- <li><a href="#our_results_pp_container">Our Results combined with post-process deflickering</a></li> -->
+  <!-- <li><a href="#our_results_others_container">Results of our method with a different image-editing technique</a></li> -->
+	<li><a href="#comparisons_baselines_container">Comparisons to Baselines</a></li>
+    <!-- <li><a href="#additional_qual_comp">Additional Qualitative Comparisons</a></li> -->
+    <!-- <li><a href="#Ablations">Ablations</a></li> -->
+    <!-- <li><a href="#pca">Diffusion Features PCA Visualizations</a></li> -->
+  </ul>
+  <h2 id="our_results_container" align="left"><a name="image-results" id="image-results"></a>Our Results</h2>
+    <hr>
+    <hr>
+  <p align="left"> Multi-resolution video results.
+    <table  width="800" align="center">
+      <tr>
+      <tr>
+        <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00297.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a city bookstore, a woman in a simple T-shirt and jeans is concentrating on flipping through a comic book. Her face was filled with excitement. The bookshelves around her were filled with all kinds of books. The whole environment was quiet and warm, as if providing an ideal space for her reading.
+                </div>
+            </div>
+        </th>
+        <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/104835889.jpg" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bustling market, a man wore a colorful shirt and held a basket of fresh vegetables in his hand. He had a kind smile on his face and talked enthusiastically with the vendors, sometimes asking about prices and sometimes sharing cooking experiences. The surrounding noise and human voices interweave to form a vivid picture of city life.
+                </div>
+            </div>
+        </th>
+        <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 170px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00744.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    At a futuristic technology expo, an engineer wearing a simple white shirt is showing her invention to the audience, and is accompanied by a small mechanical parrot. The feathers of the mechanical parrot are made of metal, and it can imitate human voices and make interesting comments from time to time. The engineer's face is filled with a confident smile, and the audience around her is staring, as if they are looking forward to her demonstration.
+                </div>
+            </div>
+        </th>
+        <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 130px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00011.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    At a futuristic art exhibition, an artist wearing unique designer clothes is communicating with a color-changing alien creature. The alien creature's body presents a variety of colors, changing with its mood, and its eyes are shining with wisdom. The artist's face shows a proud look, and the audience around him carefully appreciates their interaction, as if looking forward to the spark of creativity.
+                </div>
+            </div>
+        </th>
+        <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+        </tr>
+
+      <tr>
+          <th><a href="assets/multi_ratio_examples/0022_00297_42.mp4"> <video  height="240" src="assets/multi_ratio_examples/0022_00297_42.mp4" autoplay loop controls muted/> </a></th>
+          <th><a href="assets/multi_ratio_examples/104835889.mp4"> <video height="240"  src="assets/multi_ratio_examples/104835889.mp4" autoplay loop controls muted /> </a> </th>
+          <th><a href="assets/multi_ratio_examples/0007_00744_42.mp4"> <video height="240"  src="assets/multi_ratio_examples/0007_00744_42.mp4" autoplay loop controls muted /> </a> </th>
+          <th><a href="assets/multi_ratio_examples/0006_00011_42.mp4"> <video height="240"  src="assets/multi_ratio_examples/0006_00011_42.mp4" autoplay loop controls muted /> </a> </th>
+      </tr>
+
+      </table>
+      <table  width="800" align="center">
+        <tr>
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 310px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00182.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a future city square, a woman wearing a stylish coat is interacting with a cute robot rabbit. The robot rabbit has soft fur and big ears, and its eyes are flashing LED lights, which make cheerful calls from time to time. The woman has a bright smile on her face, and the environment is surrounded by high-tech equipment, as if she is enjoying the fun brought by technology.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 310px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00018.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a future city park, a woman wearing a fashionable sports jacket is playing with a cute mechanical squirrel. The appearance of the mechanical squirrel is made of shiny metal and soft silicone, and its eyes are two glowing LED lights, which make cheerful calls from time to time. The woman's face is filled with a happy smile, and the surrounding environment is surrounded by high-tech plants and smart devices, as if enjoying the perfect combination of technology and nature.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00086.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a future music studio, a music producer wearing a casual sweatshirt is interacting with a singing mechanical bird. The feathers of the mechanical bird are made of metal, which can imitate the sounds of various instruments and emit pleasant melodies from time to time. The producer's face reveals his love for music, and the surrounding equipment emits a faint buzzing sound, as if supporting his creation.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 130px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00019.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a futuristic technology laboratory, a programmer wearing a simple T-shirt is communicating with an intelligent assistant robot. The assistant robot has a rounded shape, can understand human language, and gives humorous answers from time to time. The programmer's face shows a thoughtful expression, and the surrounding display screens flash data flow, as if in a battle of wits.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+          <hr>
+
+          <tr>
+            <th><a href="assets/multi_ratio_examples/0005_00182_42.mp4"> <video height="240"  src="assets/multi_ratio_examples/0005_00182_42.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/multi_ratio_examples/0013_00018_42.mp4"> <video height="240"  src="assets/multi_ratio_examples/0013_00018_42.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/multi_ratio_examples/0014_00086_42.mp4"> <video  height="240" src="assets/multi_ratio_examples/0014_00086_42.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/multi_ratio_examples/0012_00019_42.mp4"> <video height="240"  src="assets/multi_ratio_examples/0012_00019_42.mp4" autoplay loop controls muted /> </a> </th>
+          </tr>
+
+        </table>
+
+        <hr>
+        <hr>
+      <p align="left"> Single-person multi-scene video results.
+      <table  width="800" align="center">
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00017.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    On a busy city street, a woman stood in front of a traffic light, wearing a dark blue windbreaker and a pair of worn black leather shoes. She held a cup of steaming coffee in her hand and a faint smile on her face, as if she was enjoying the short wait. Pedestrians hurried past and the traffic was endless, but she seemed calm and unhurried, looking through the crowd, as if looking for something.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00017.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    On the beach by the sea, a woman wore a light-colored short-sleeved shirt and beach pants, a straw hat on her head, and sunscreen on her face. She stepped barefoot on the warm sand, holding a colorful beach ball in her hand, and ran towards the waves excitedly. Under the sunshine, her laughter was crisp and pleasant, as if intertwined with the sound of the waves, forming a vivid summer picture.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00017.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    On the ski resort in winter, a ski enthusiast wears a bright ski suit, a thick woolen hat, and sunscreen on her face. Her skis draw graceful arcs on the snow, and her movements are flexible and confident. The surrounding snow-capped mountains sparkled in the sun, as if adding infinite fun to her sliding.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_id/0000_00017_8042.mp4"> <video height="240"  src="assets/single_id/0000_00017_8042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0001_00017_8042.mp4"> <video height="240"  src="assets/single_id/0001_00017_8042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0005_00017_42.mp4"> <video  height="240" src="assets/single_id/0005_00017_42.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00017.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a futuristic laboratory, a scientist in a white lab coat, holding a laser pen in her hand, was concentrating on observing the data on the display. Her hair was held down by a transparent goggles, and her face showed excitement. The surrounding equipment made a faint buzzing sound, and the flashing instrument lights reflected her focused face, as if she was making a major scientific breakthrough.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00017.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a future virtual reality game center, a woman wearing light sportswear and a virtual reality helmet is immersed in the world of the game. She holds the controller in her hand, with an excited smile on her face, and the surrounding environment is surrounded by colorful lights and shadows, as if fighting a fierce battle.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00017.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a future music studio, a music producer wearing a casual sweatshirt is concentrating on debugging the audio equipment. Her face shows her love for music, and the surrounding equipment emits a faint buzzing sound, as if supporting her creation.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_id/0024_00017_5042.mp4"> <video height="240"  src="assets/single_id/0024_00017_5042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0026_00017_5042.mp4"> <video height="240"  src="assets/single_id/0026_00017_5042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0044_00017_5042.mp4"> <video  height="240" src="assets/single_id/0044_00017_5042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+
+        </table>
+    <hr>
+    <table  width="800" align="center">
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00086.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a shopping mall full of technology, a man wearing casual sportswear is shopping through a smart device. He has a satisfied smile on his face, and the surrounding environment is surrounded by high-tech equipment, as if enjoying the future shopping experience.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00086.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the autumn park, a man wearing a warm jacket and casual pants pushes a stroller with a gentle smile on his face and his eyes gently look at the baby in the stroller. The fallen leaves gently fall at his feet, and the sun shines on him through the treetops, reflecting his tranquility and serenity.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00086.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the exhibition hall of the museum, an art lover wore a simple white shirt and a pair of black trousers, holding a small notebook in his hand, carefully recording the details of the exhibits. His eyes flashed with love for art, and he stopped from time to time to carefully appreciate each painting, as if he was communicating with the artist in his heart.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_id/0040_00086_7042.mp4"> <video height="240"  src="assets/single_id/0040_00086_7042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0003_00086_5042.mp4"> <video height="240"  src="assets/single_id/0003_00086_5042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0007_00086_42.mp4"> <video  height="240" src="assets/single_id/0007_00086_42.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00086.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the gym in the city, a man in tight sportswear was concentrating on strength training. His face showed a determined look, sweat slid down his forehead, and the surrounding environment was full of vitality and passion, as if cheering for his efforts.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00086.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a warm family kitchen, a man in an apron is preparing dinner for his children. With a warm smile on his face, he skillfully cuts vegetables in his hands and occasionally turns back to chat and laugh with the children. The kitchen is filled with the aroma of food, and the warm atmosphere makes people feel the warmth of home.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00086.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a future marine research center, a scientist wearing a blue lab coat is observing marine life through a transparent tank. His face showed surprise and curiosity, and the surrounding environment was surrounded by high-tech equipment, as if exploring the mysteries of the ocean.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_id/0021_00086_42.mp4"> <video height="240"  src="assets/single_id/0021_00086_42.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0014_00086_42.mp4"> <video height="240"  src="assets/single_id/0014_00086_42.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0037_00086_7042.mp4"> <video  height="240" src="assets/single_id/0037_00086_7042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+
+        </table>
+    <hr>
+    <table  width="800" align="center">
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00297.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    On a rooftop in the city, a DJ in stylish street clothes is busy adjusting the sound equipment. With headphones hanging around her neck and the knobs of the mixer in her hands, she looks focused and confident. As night falls, the lights of the city flicker behind her, as if adding infinite charm to her music.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00297.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    Next to the ruins of an ancient castle, a historian wearing an archaeological suit and holding a small shovel in her hand is carefully digging the soil. Her face is full of concentration, and her eyes are shining with love for history. The surroundings are quiet and mysterious, and the ancient stone walls look particularly solemn in the sun, as if telling stories of the past.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00297.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a technological cafe, a woman wearing fashionable casual clothes is ordering through a smart desktop. Her fingers slide across the screen, with an expectant smile on her face, and the surrounding environment is surrounded by high-tech equipment, as if enjoying a future lifestyle.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_id/0012_00297_42.mp4"> <video height="240"  src="assets/single_id/0012_00297_42.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0016_00297_42.mp4"> <video height="240"  src="assets/single_id/0016_00297_42.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0032_00297_7042.mp4"> <video  height="240" src="assets/single_id/0032_00297_7042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00297.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a futuristic city square, a woman wearing a stylish coat is playing an intense virtual reality game with her friends. Her face is filled with an excited smile, and the surrounding environment is surrounded by colorful lights and shadows, as if enjoying the fun brought by technology.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00297.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a future city night scene, a street artist wearing a loose sweatshirt is creating on the wall with spray paint. Her face is filled with passion for creation, and the neon lights around her are flickering, as if adding color to her artwork.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00297.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In a future city park, a woman wearing a light sportswear is playing with a cute mechanical puppy. The puppy's appearance is made of shiny metal and soft silicone, and its eyes are two glowing LED lights. It shakes its tail and makes cheerful barking sounds. The woman's face is filled with a happy smile, and the surrounding environment is surrounded by high-tech plants and smart devices, as if enjoying the perfect combination of technology and nature.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_id/0038_00297_5042.mp4"> <video height="240"  src="assets/single_id/0038_00297_5042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0041_00297_9042.mp4"> <video height="240"  src="assets/single_id/0041_00297_9042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_id/0049_00297_6042.mp4"> <video  height="240" src="assets/single_id/0049_00297_6042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+
+        </table>
+    <hr>
+    <hr>
+    <p align="left"> Multi-person single-scene video results.
+      <table  width="800" align="center">
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00017.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bar at night, a person wearing a black leather jacket and tight jeans holds a glass of whiskey in their hand. With deep eyes, they appear to be lost in thought. The surrounding music and voices intertwine, while the dim lights reflect off their well-defined face, giving people a mysterious and charming feeling.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00018.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bar at night, a person wearing a black leather jacket and tight jeans holds a glass of whiskey in their hand. With deep eyes, they appear to be lost in thought. The surrounding music and voices intertwine, while the dim lights reflect off their well-defined face, giving people a mysterious and charming feeling.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00083.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bar at night, a person wearing a black leather jacket and tight jeans holds a glass of whiskey in their hand. With deep eyes, they appear to be lost in thought. The surrounding music and voices intertwine, while the dim lights reflect off their well-defined face, giving people a mysterious and charming feeling.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_scene/0004_00017_8042.mp4"> <video height="240"  src="assets/single_scene/0004_00017_8042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0004_00018_9042.mp4"> <video height="240"  src="assets/single_scene/0004_00018_9042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0004_00083_5042.mp4"> <video  height="240" src="assets/single_scene/0004_00083_5042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00120.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bar at night, a person wearing a black leather jacket and tight jeans holds a glass of whiskey in their hand. With deep eyes, they appear to be lost in thought. The surrounding music and voices intertwine, while the dim lights reflect off their well-defined face, giving people a mysterious and charming feeling.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00161.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bar at night, a person wearing a black leather jacket and tight jeans holds a glass of whiskey in their hand. With deep eyes, they appear to be lost in thought. The surrounding music and voices intertwine, while the dim lights reflect off their well-defined face, giving people a mysterious and charming feeling.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00744.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bar at night, a person wearing a black leather jacket and tight jeans holds a glass of whiskey in their hand. With deep eyes, they appear to be lost in thought. The surrounding music and voices intertwine, while the dim lights reflect off their well-defined face, giving people a mysterious and charming feeling.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_scene/0004_00120_6042.mp4"> <video height="240"  src="assets/single_scene/0004_00120_6042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0004_00161_7042.mp4"> <video height="240"  src="assets/single_scene/0004_00161_7042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0004_00744_6042.mp4"> <video  height="240" src="assets/single_scene/0004_00744_6042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+
+        </table>
+
+    <hr>
+
+    <table  width="800" align="center">
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00019.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bustling market, a person wore a colorful shirt and held a basket of fresh vegetables in their hand. They had a kind smile on their face and engaged enthusiastically with the vendors, sometimes inquiring about prices and other times sharing cooking experiences. The surrounding noise and human voices interweave to create a vivid picture of city life.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00142.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bustling market, a person wore a colorful shirt and held a basket of fresh vegetables in their hand. They had a kind smile on their face and engaged enthusiastically with the vendors, sometimes inquiring about prices and other times sharing cooking experiences. The surrounding noise and human voices interweave to create a vivid picture of city life.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00203.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bustling market, a person wore a colorful shirt and held a basket of fresh vegetables in their hand. They had a kind smile on their face and engaged enthusiastically with the vendors, sometimes inquiring about prices and other times sharing cooking experiences. The surrounding noise and human voices interweave to create a vivid picture of city life.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_scene/0011_00019_9042.mp4"> <video height="240"  src="assets/single_scene/0011_00019_9042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0011_00142_8042.mp4"> <video height="240"  src="assets/single_scene/0011_00142_8042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0011_00203_5042.mp4"> <video  height="240" src="assets/single_scene/0011_00203_5042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00389.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bustling market, a person wore a colorful shirt and held a basket of fresh vegetables in their hand. They had a kind smile on their face and engaged enthusiastically with the vendors, sometimes inquiring about prices and other times sharing cooking experiences. The surrounding noise and human voices interweave to create a vivid picture of city life.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00432.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bustling market, a person wore a colorful shirt and held a basket of fresh vegetables in their hand. They had a kind smile on their face and engaged enthusiastically with the vendors, sometimes inquiring about prices and other times sharing cooking experiences. The surrounding noise and human voices interweave to create a vivid picture of city life.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00447.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the bustling market, a person wore a colorful shirt and held a basket of fresh vegetables in their hand. They had a kind smile on their face and engaged enthusiastically with the vendors, sometimes inquiring about prices and other times sharing cooking experiences. The surrounding noise and human voices interweave to create a vivid picture of city life.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_scene/0011_00389_6042.mp4"> <video height="240"  src="assets/single_scene/0011_00389_6042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0011_00432_9042.mp4"> <video height="240"  src="assets/single_scene/0011_00432_9042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0011_00447_5042.mp4"> <video  height="240" src="assets/single_scene/0011_00447_5042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+
+        </table>
+
+    <hr>
+
+    <table  width="800" align="center">
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00011.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the rainforest, an explorer in camouflage clothing and carrying a large backpack is carefully crossing the dense vegetation. They have a determined expression on their face, holding a trekking pole in one hand, and occasionally stop to observe the surrounding flora and fauna. The sun casts mottled light and shadows through the leaves, reflecting the spirit of brave exploration.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00145.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the rainforest, an explorer in camouflage clothing and carrying a large backpack is carefully crossing the dense vegetation. They have a determined expression on their face, holding a trekking pole in one hand, and occasionally stop to observe the surrounding flora and fauna. The sun casts mottled light and shadows through the leaves, reflecting the spirit of brave exploration.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00161.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the rainforest, an explorer in camouflage clothing and carrying a large backpack is carefully crossing the dense vegetation. They have a determined expression on their face, holding a trekking pole in one hand, and occasionally stop to observe the surrounding flora and fauna. The sun casts mottled light and shadows through the leaves, reflecting the spirit of brave exploration.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_scene/0017_00011_8042.mp4"> <video height="240"  src="assets/single_scene/0017_00011_8042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0017_00145_6042.mp4"> <video height="240"  src="assets/single_scene/0017_00145_6042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0017_00161_8042.mp4"> <video  height="240" src="assets/single_scene/0017_00161_8042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+        <tr>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00176.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the rainforest, an explorer in camouflage clothing and carrying a large backpack is carefully crossing the dense vegetation. They have a determined expression on their face, holding a trekking pole in one hand, and occasionally stop to observe the surrounding flora and fauna. The sun casts mottled light and shadows through the leaves, reflecting the spirit of brave exploration.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00199.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the rainforest, an explorer in camouflage clothing and carrying a large backpack is carefully crossing the dense vegetation. They have a determined expression on their face, holding a trekking pole in one hand, and occasionally stop to observe the surrounding flora and fauna. The sun casts mottled light and shadows through the leaves, reflecting the spirit of brave exploration.
+                </div>
+            </div>
+          </th>
+          <th style="font-size: 13px; padding: 10px;">
+            <div style="display: flex; align-items: flex-start; width: 412px; border: 1px solid #ccc; padding: 5px;">
+                <img src="assets/identity_image/00316.png" alt="Bookstore" style="width: 90px; height: 90px; margin-right: 10px;">
+                <div style="overflow-y: auto; height: 90px; flex: 1; font-weight: 300; text-align: left;">
+                    In the rainforest, an explorer in camouflage clothing and carrying a large backpack is carefully crossing the dense vegetation. They have a determined expression on their face, holding a trekking pole in one hand, and occasionally stop to observe the surrounding flora and fauna. The sun casts mottled light and shadows through the leaves, reflecting the spirit of brave exploration.
+                </div>
+            </div>
+          </th>
+          <!-- <th style="font-size: 16px">TokenFlow (<a href="#ref-tokenflow">[3]</a>)</th> -->
+          </tr>
+
+          <tr>
+            <th><a href="assets/single_scene/0017_00176_8042.mp4"> <video height="240"  src="assets/single_scene/0017_00176_8042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0017_00199_7042.mp4"> <video height="240"  src="assets/single_scene/0017_00199_7042.mp4" autoplay loop controls muted /> </a> </th>
+            <th><a href="assets/single_scene/0017_00316_9042.mp4"> <video  height="240" src="assets/single_scene/0017_00316_9042.mp4" autoplay loop controls muted/> </a></th>
+          </tr>
+
+        </table>
+
+    <hr>
+    <hr>
+
+  <h2 id="comparisons_baselines_container" align="left"><a name="image-results" id="image-results"></a>Comparisons to Baselines</h2>
+  <p align="left"> Prevailing methods are frequently confronted with two predominant challenges: semantic discrepancies and copy-paste artifacts
+    <ul>
+        <!-- <li>Text-to-video-zero (<a href="#ref-txt2vid">[1]</a>) .</li>  -->
+        <li>ID-Animator (<a href="#ref-ID-Animator">[1]</a>).</li>
+        <!-- <li>Gen1 (<a href="#ref-gen1">[3]</a>).</li>  -->
+        <!-- <li>Plug-and-Play per frame (<a href="#ref-pnp">[4]</a>).</li>  -->
+        <li>ConsisID (<a href="#ref-consisID">[2</a>)</li>
+<!--        <li>TokenFlow (<a href="#ref-tokenflow">[3]</a>)</li>-->
+</ul>
+    In contrast, our method not only achieves video quality and identity preservation comparable to ConsisID (<a href="#ref-consisID">[2]</a>) but also effectively addresses the aforementioned challenges. </p>
+
+  <table  width="800" align="center">
+        <tr>
+            <th style="font-size: 16px">Input</th>
+            <th style="font-size: 16px">Ours</th>
+            <th style="font-size: 16px">ID-Animator (<a href="#ref-ID-Animator">[1]</a>)</th>
+            <th style="font-size: 16px">ConsisID (<a href="#ref-consisID">[2]</a>)</th>
+        </tr>
+
+        <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        In the exhibition hall of the museum, an art lover wore a simple white shirt and a pair of black trousers, holding a small notebook in his hand, carefully recording the details of the exhibits. His eyes flashed with love for art, and he stopped from time to time to carefully appreciate each painting, as if he was communicating with the artist in his heart.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00102.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0007_00102_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0007_00102_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0007_00102_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0007_00102_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0007_00102_42_consisID.mp4"> <video  height="240" src="assets/comparison/0007_00102_42_consisID.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 16px">Input</th>
+            <th style="font-size: 16px">Ours</th>
+            <th style="font-size: 16px">ID-Animator (<a href="#ref-ID-Animator">[1]</a>)</th>
+            <th style="font-size: 16px">ConsisID (<a href="#ref-consisID">[2]</a>)</th>
+        </tr>
+
+        <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        On a winter ice skating rink, a woman in a dark skating outfit is spinning gracefully on the ice. A happy smile fills her face, and she waves a colorful scarf in her hands, and the audience around her cheers for her. The ice surface glitters under the light, as if adding infinite charm to her performance.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00203.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0019_00203_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0019_00203_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0019_00203_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0019_00203_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0019_00203_42_consisID.mp4"> <video  height="240" src="assets/comparison/0019_00203_42_consisID.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 16px">Input</th>
+            <th style="font-size: 16px">Ours</th>
+            <th style="font-size: 16px">ID-Animator (<a href="#ref-ID-Animator">[1]</a>)</th>
+            <th style="font-size: 16px">ConsisID (<a href="#ref-consisID">[2]</a>)</th>
+        </tr>
+
+        <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        On the beach by the sea, a woman wore a light-colored short-sleeved shirt and beach pants, a straw hat on her head, and sunscreen on her face. She stepped barefoot on the warm sand, holding a colorful beach ball in her hand, and ran towards the waves excitedly. Under the sunshine, her laughter was crisp and pleasant, as if intertwined with the sound of the waves, forming a vivid summer picture.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00744.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0001_00744_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0001_00744_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0001_00744_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0001_00744_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0001_00744_42_consisId.mp4"> <video  height="240" src="assets/comparison/0001_00744_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 16px">Input</th>
+            <th style="font-size: 16px">Ours</th>
+            <th style="font-size: 16px">ID-Animator (<a href="#ref-ID-Animator">[1]</a>)</th>
+            <th style="font-size: 16px">ConsisID (<a href="#ref-consisID">[2]</a>)</th>
+        </tr>
+
+        <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        On a busy city street, a woman stood in front of a traffic light, wearing a dark blue windbreaker and a pair of worn black leather shoes. She held a cup of steaming coffee in her hand and a faint smile on her face, as if she was enjoying the short wait. Pedestrians hurried past and the traffic was endless, but she seemed calm and unhurried, looking through the crowd, as if looking for something.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00203.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0000_00203_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0000_00203_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0000_00203_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0000_00203_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0000_00203_42_consisId.mp4"> <video  height="240" src="assets/comparison/0000_00203_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        On a rooftop in the city, a DJ in stylish street clothes is busy adjusting the sound equipment. With headphones hanging around her neck and the knobs of the mixer in her hands, she looks focused and confident. As night falls, the lights of the city flicker behind her, as if adding infinite charm to her music.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00055.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0012_00055_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0012_00055_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0012_00055_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0012_00055_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0012_00055_42_consisId.mp4"> <video  height="240" src="assets/comparison/0012_00055_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 16px">Input</th>
+            <th style="font-size: 16px">Ours</th>
+            <th style="font-size: 16px">ID-Animator (<a href="#ref-ID-Animator">[1]</a>)</th>
+            <th style="font-size: 16px">ConsisID (<a href="#ref-consisID">[2]</a>)</th>
+        </tr>
+
+        <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        On the ski resort in winter, a ski enthusiast wears a bright ski suit, a thick woolen hat, and sunscreen on his face. Her skis draw graceful arcs on the snow, and her movements are flexible and confident. The surrounding snow-capped mountains sparkled in the sun, as if adding infinite fun to her sliding.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00182.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0005_00182_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0005_00182_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0005_00182_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0005_00182_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0005_00182_42_consisId.mp4"> <video  height="240" src="assets/comparison/0005_00182_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        On a country road, a woman riding a bicycle in a sports T-shirt and a bright smile on her face rides through the fields at lightning speed. The sun shines on her body, reflecting her youthful vitality, and the surrounding scenery passes by her quickly, as if cheering for her adventure.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00161.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0013_00161_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0013_00161_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0013_00161_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0013_00161_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0013_00161_42_consisId.mp4"> <video  height="240" src="assets/comparison/0013_00161_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        On the playground of the campus, a man in sportswear is playing a fierce basketball game with his friends. His face is full of sweat, his expression is focused and excited, sometimes shouting loudly, sometimes cheering. The audience around cheered for him, and the whole scene was full of youthful vitality and passion.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00019.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0010_00019_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0010_00019_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0010_00019_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0010_00019_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0010_00019_42_consisId.mp4"> <video  height="240" src="assets/comparison/0010_00019_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 16px">Input</th>
+            <th style="font-size: 16px">Ours</th>
+            <th style="font-size: 16px">ID-Animator (<a href="#ref-ID-Animator">[1]</a>)</th>
+            <th style="font-size: 16px">ConsisID (<a href="#ref-consisID">[2]</a>)</th>
+        </tr>
+
+        <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        In the exhibition hall of the museum, an art lover wore a simple white shirt and a pair of black trousers, holding a small notebook in his hand, carefully recording the details of the exhibits. His eyes flashed with love for art, and he stopped from time to time to carefully appreciate each painting, as if he was communicating with the artist in his heart.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00120.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0007_00120_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0007_00120_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0007_00120_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0007_00120_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0007_00120_42_consisId.mp4"> <video  height="240" src="assets/comparison/0007_00120_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 16px">Input</th>
+            <th style="font-size: 16px">Ours</th>
+            <th style="font-size: 16px">ID-Animator (<a href="#ref-ID-Animator">[1]</a>)</th>
+            <th style="font-size: 16px">ConsisID (<a href="#ref-consisID">[2]</a>)</th>
+        </tr>
+
+        <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        In a warm family kitchen, a man wearing an apron is preparing dinner for his children. With a warm smile on his face, he skillfully cuts vegetables in his hands and occasionally turns back to chat and laugh with the children. The kitchen is filled with the aroma of food, and the warm atmosphere makes people feel the warmth of home.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00142.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0014_00142_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0014_00142_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0014_00142_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0014_00142_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0014_00142_42_consisId.mp4"> <video  height="240" src="assets/comparison/0014_00142_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      <tr>
+            <th style="font-size: 16px">Input</th>
+            <th style="font-size: 16px">Ours</th>
+            <th style="font-size: 16px">ID-Animator (<a href="#ref-ID-Animator">[1]</a>)</th>
+            <th style="font-size: 16px">ConsisID (<a href="#ref-consisID">[2]</a>)</th>
+        </tr>
+
+        <tr>
+            <th style="font-size: 13px; padding: 10px;">
+                <div style="display: flex; align-items: flex-start; width: 200px; border: 1px solid #ccc; padding: 5px;">
+                    <div style="overflow-y: auto; height: 100px; flex: 1; font-weight: 300; text-align: left;">
+                        At the city's art exhibition, a painter wearing a simple black shirt and dark trousers is standing in front of her paintings with a proud look on her face. The audience around her is carefully admiring her work, sometimes whispering and sometimes exclaiming. Her eyes wander between the audience and the paintings, as if she is expecting their feedback.
+                    </div>
+                </div>
+                <img src="assets/identity_image/00389.png" alt="Futuristic Technology Laboratory" style="width: 55%; margin-top: 10px;">
+            </th>
+            <th><a href="assets/comparison/0018_00389_42_echovideo.mp4"> <video  height="240" src="assets/comparison/0018_00389_42_echovideo.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0018_00389_42_idAnimator.mp4"> <video  height="240" src="assets/comparison/0018_00389_42_idAnimator.mp4" autoplay loop controls muted/> </a></th>
+            <th><a href="assets/comparison/0018_00389_42_consisId.mp4"> <video  height="240" src="assets/comparison/0018_00389_42_consisId.mp4" autoplay loop controls muted/> </a></th>
+        </tr>
+
+      </table>
+        <hr>
+        <hr>
+<!------------------ END SECTION ------------------>
+
+<!--  <p>&nbsp;</p>-->
+  <h2 id="pca" align="left"><a name="image-results" id="image-results"></a>References</h2>
+
+  <p>
+    <a name="ref-ID-Animator" id="ref-ID-Animator"></a>
+    [1] He X, Liu Q, Qian S, et al. Id-animator: Zero-shot identity-preserving human video generation[J]. arXiv preprint arXiv:2404.15275, 2024.
+  </p>
+
+    <p>
+      <a name="ref-consisID" id="ref-consisID"></a>
+      [2] Yuan S, Huang J, He X, et al. Identity-Preserving Text-to-Video Generation by Frequency Decomposition[J]. arXiv preprint arXiv:2411.17440, 2024.
+    </p>
+</div>
+
+</body></html>
